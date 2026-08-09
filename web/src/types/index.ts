@@ -99,3 +99,12 @@ export interface FoodItem {
   fatsPer100g: number;
   portionStandard?: string;
 }
+
+export interface FoodSubstitutionResponse {
+  originalFood: string;
+  originalGrams: number;
+  substituteFood: string;
+  substituteGrams: number;
+  explanation: string;
+  cookingTip: string;
+}
