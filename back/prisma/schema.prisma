@@ -1,0 +1,237 @@
+// Prisma Schema para Producción (PostgreSQL)
+// Diseñado para escalar a multi-tenant con nutricionistas, pacientes, planes, tracking y sustituciones por IA.
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  NUTRITIONIST
+  PATIENT
+  ADMIN
+}
+
+enum PlanTier {
+  FREE
+  INICIAL
+  PRO
+  PREMIUM
+}
+
+enum MealType {
+  DESAYUNO
+  MEDIA_MANANA
+  ALMUERZO
+  MERIENDA
+  CENA
+  COLACION
+}
+
+enum DayOfWeek {
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
+  SABADO
+  DOMINGO
+}
+
+enum FoodCategory {
+  VERDULERIA
+  CARNICERIA
+  ALMACEN
+  REFRIGERADOS
+  LEGUMBRES_CEREALES
+  FRUTAS
+  FRUTOS_SECOS_SEMILLAS
+  SUPLEMENTOS
+}
+
+model User {
+  id           String          @id @default(uuid())
+  email        String          @unique
+  passwordHash String
+  fullName     String
+  role         Role            @default(PATIENT)
+  avatarUrl    String?
+  phone        String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  // Relaciones
+  patientProfile PatientProfile?
+  nutritionistProfile NutritionistProfile?
+
+  @@map("users")
+}
+
+model NutritionistProfile {
+  id              String           @id @default(uuid())
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber   String           // Matrícula Profesional (ej: M.P. 1842 - Mendoza)
+  specialty       String           @default("Nutrición Clínica y Deportiva")
+  clinicAddress   String?          @default("Av. San Martín 1240, Ciudad de Mendoza")
+  patients        PatientProfile[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("nutritionist_profiles")
+}
+
+model PatientProfile {
+  id                    String                   @id @default(uuid())
+  userId                String                   @unique
+  user                  User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nutritionistId        String?
+  nutritionist          NutritionistProfile?     @relation(fields: [nutritionistId], references: [id])
+  
+  // Datos Personales & Ubicación en Mendoza
+  city                  String                   @default("Mendoza")
+  locality              String                   // ej: "Godoy Cruz", "Ciudad", "Luján de Cuyo"
+  birthDate             DateTime?
+  gender                String?                  // "FEMALE", "MALE", "OTHER"
+  plan                  PlanTier                 @default(FREE)
+  
+  // Métricas Antropométricas Actuales
+  heightCm              Float                    // ej: 172 cm
+  initialWeightKg       Float                    // ej: 84.5 kg
+  currentWeightKg       Float                    // ej: 78.2 kg
+  targetWeightKg        Float                    // ej: 72.0 kg
+  bodyFatPercentage     Float?                   // ej: 22.4 %
+  muscleMassPercentage  Float?                   // ej: 34.8 %
+  visceralFat           Int?                     // Nivel 1 a 12
+  clinicalNotes         String?                  // Observaciones de la nutricionista
+  
+  // Relaciones
+  anthropometricHistory AnthropometricRecord[]
+  mealPlans             MealPlan[]
+  dailyLogs             DailyLog[]
+  
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+
+  @@map("patient_profiles")
+}
+
+model AnthropometricRecord {
+  id                  String         @id @default(uuid())
+  patientId           String
+  patient             PatientProfile @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  date                DateTime       @default(now())
+  weightKg            Float
+  bodyFatPercentage   Float?
+  muscleMassPercentage Float?
+  waistCm             Float?
+  hipCm               Float?
+  chestCm             Float?
+  notes               String?
+  createdAt           DateTime       @default(now())
+
+  @@map("anthropometric_records")
+}
+
+model MealPlan {
+  id              String         @id @default(uuid())
+  patientId       String
+  patient         PatientProfile @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  title           String         // ej: "Plan Déficit Calórico Controlado - Fase 2"
+  caloriesTarget  Int            // ej: 1950 kcal
+  proteinGrams    Int            // ej: 140 g
+  carbsGrams      Int            // ej: 180 g
+  fatsGrams       Int            // ej: 55 g
+  isActive        Boolean        @default(true)
+  startDate       DateTime       @default(now())
+  endDate         DateTime?
+  notes           String?
+  days            DayMealPlan[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@map("meal_plans")
+}
+
+model DayMealPlan {
+  id          String       @id @default(uuid())
+  mealPlanId  String
+  mealPlan    MealPlan     @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+  dayOfWeek   DayOfWeek
+  meals       MealSlot[]
+  createdAt   DateTime     @default(now())
+
+  @@map("day_meal_plans")
+}
+
+model MealSlot {
+  id            String       @id @default(uuid())
+  dayMealPlanId String
+  dayMealPlan   DayMealPlan  @relation(fields: [dayMealPlanId], references: [id], onDelete: Cascade)
+  type          MealType     // DESAYUNO, ALMUERZO, etc.
+  title         String       // ej: "Tostadas integrales con palta y huevo pochado"
+  description   String?
+  items         MealItem[]
+
+  @@map("meal_slots")
+}
+
+model MealItem {
+  id          String    @id @default(uuid())
+  mealSlotId  String
+  mealSlot    MealSlot  @relation(fields: [mealSlotId], references: [id], onDelete: Cascade)
+  foodId      String
+  food        Food      @relation(fields: [foodId], references: [id])
+  quantityGrams Float   // ej: 120 (gramos)
+  unit        String    @default("g") // "g", "ml", "unidad", "cucharada"
+
+  @@map("meal_items")
+}
+
+model Food {
+  id              String         @id @default(uuid())
+  name            String         // ej: "Pechuga de Pollo", "Avena tradicional"
+  category        FoodCategory   // VERDULERIA, CARNICERIA, etc.
+  caloriesPer100g Float
+  proteinPer100g  Float
+  carbsPer100g    Float
+  fatsPer100g     Float
+  portionStandard String?        // "1 unidad mediana (120g)", "1 taza (80g)"
+  mealItems       MealItem[]
+
+  @@map("foods")
+}
+
+model DailyLog {
+  id              String         @id @default(uuid())
+  patientId       String
+  patient         PatientProfile @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  date            DateTime       @default(now())
+  waterGlasses    Int            @default(0) // Cada vaso = 250ml
+  waterTargetGlasses Int         @default(8) // 2000 ml
+  completedMeals  Json           // Array de IDs de mealSlots o keys de comidas tildadas
+  adherenceScore  Int            // Porcentaje 0 a 100%
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([patientId, date])
+  @@map("daily_logs")
+}
+
+model FoodSubstitution {
+  id               String       @id @default(uuid())
+  originalFood     String       // ej: "Arroz Blanco cocido"
+  substituteFood   String       // ej: "Batata al horno"
+  originalGrams    Float        // ej: 100
+  substituteGrams  Float        // ej: 125
+  category         FoodCategory
+  explanation      String       // Motivo y equivalencia en micronutrientes
+  createdAt        DateTime     @default(now())
+
+  @@map("food_substitutions")
+}
