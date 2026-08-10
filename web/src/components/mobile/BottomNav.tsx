@@ -48,7 +48,7 @@ export const BottomNav: React.FC = () => {
 
   return (
     <nav className="fixed bottom-3 left-0 right-0 z-50 flex justify-center pointer-events-none px-3">
-      <div className="w-full max-w-[410px] bg-white/95 backdrop-blur-md border border-slate-200 rounded-full px-3 py-1.5 flex items-center justify-between pointer-events-auto shadow-nav-floating">
+      <div className="w-full max-w-[410px] bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-700 border border-emerald-500/60 rounded-full px-3 py-1.5 flex items-center justify-between pointer-events-auto shadow-xl shadow-emerald-950/20 backdrop-blur-md">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -60,10 +60,10 @@ export const BottomNav: React.FC = () => {
                 href={item.href}
                 className="flex flex-col items-center justify-center -mt-6 group"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-600 to-green-500 flex items-center justify-center text-white font-bold shadow-green-glow group-hover:scale-105 group-active:scale-95 transition-transform border-2 border-white">
-                  <Sparkles className="w-6 h-6 stroke-[2.5]" />
+                <div className="w-12 h-12 rounded-full bg-white text-emerald-600 flex items-center justify-center font-bold shadow-lg shadow-black/20 group-hover:scale-105 group-active:scale-95 transition-all border-2 border-white">
+                  <Sparkles className="w-6 h-6 stroke-[2.5] text-emerald-600" />
                 </div>
-                <span className="text-[10px] font-bold text-emerald-700 mt-0.5">
+                <span className="text-[10px] font-bold text-white mt-0.5 drop-shadow-sm">
                   IA Swap
                 </span>
               </Link>
@@ -76,20 +76,20 @@ export const BottomNav: React.FC = () => {
               href={item.href}
               className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-2xl transition-all ${
                 isActive
-                  ? 'text-emerald-700 font-bold'
-                  : 'text-slate-400 hover:text-slate-600'
+                  ? 'text-white font-bold'
+                  : 'text-emerald-100 hover:text-white'
               }`}
             >
               <div
-                className={`p-1 rounded-xl transition-all ${
+                className={`p-1.5 rounded-xl transition-all ${
                   isActive
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : 'bg-transparent'
+                    ? 'bg-white/20 text-white shadow-inner ring-1 ring-white/30'
+                    : 'bg-transparent text-emerald-100/90 group-hover:text-white'
                 }`}
               >
                 <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-2'}`} />
               </div>
-              <span className="text-[10px] tracking-tight mt-0.5 font-medium">
+              <span className={`text-[10px] tracking-tight mt-0.5 ${isActive ? 'font-bold text-white' : 'font-medium text-emerald-100/90'}`}>
                 {item.label}
               </span>
             </Link>

@@ -13,7 +13,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#f8fafc',
+  themeColor: '#e2e8f0',
 };
 
 export default function MobileRootLayout({
@@ -23,7 +23,7 @@ export default function MobileRootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-[#f1f5f9] text-slate-800 min-h-screen antialiased flex justify-center selection:bg-emerald-200 selection:text-emerald-900">
+      <body className="bg-[#e2e8f0] text-slate-800 min-h-screen antialiased flex justify-center selection:bg-emerald-200 selection:text-emerald-900">
         <MobileShell>
           {children}
         </MobileShell>

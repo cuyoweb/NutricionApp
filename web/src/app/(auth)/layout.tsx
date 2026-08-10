@@ -14,7 +14,7 @@ export default function AuthRootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-[#f8fafc] text-slate-800 min-h-screen antialiased">
+      <body className="bg-[#e2e8f0] text-slate-800 min-h-screen antialiased">
         {children}
       </body>
     </html>
