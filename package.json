@@ -4,13 +4,12 @@
   "private": true,
   "description": "Ecosistema Digital de Nutrición - Monorepo MVP (Back, Front, Mobile)",
   "scripts": {
-    "dev": "concurrently -n \"BACK,FRONT,MOBILE\" -c \"bgBlue.bold,bgGreen.bold,bgMagenta.bold\" \"npm run dev --prefix back\" \"npm run dev --prefix front\" \"npm run dev --prefix mobile\"",
-    "dev:all": "concurrently -n \"BACK,FRONT,MOBILE\" -c \"bgBlue.bold,bgGreen.bold,bgMagenta.bold\" \"npm run dev --prefix back\" \"npm run dev --prefix front\" \"npm run dev --prefix mobile\"",
+    "dev": "concurrently -n \"BACK,WEB\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --prefix back\" \"npm run dev --prefix web\"",
+    "dev:all": "concurrently -n \"BACK,WEB\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --prefix back\" \"npm run dev --prefix web\"",
     "dev:back": "npm run dev --prefix back",
-    "dev:front": "npm run dev --prefix front",
-    "dev:mobile": "npm run dev --prefix mobile",
-    "install:all": "npm install && npm install --prefix back && npm install --prefix front && npm install --prefix mobile",
-    "build:all": "npm run build --prefix back && npm run build --prefix front && npm run build --prefix mobile"
+    "dev:web": "npm run dev --prefix web",
+    "install:all": "npm install && npm install --prefix back && npm install --prefix web",
+    "build:all": "npm run build --prefix back && npm run build --prefix web"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

@@ -4,22 +4,24 @@ Plataforma integral full-stack de prescripción inteligente de dietas, seguimien
 
 ---
 
-## 🏗️ Estructura del Monorepo
+## 🏗️ Estructura del Proyecto
 
-El proyecto está organizado en **3 carpetas independientes** en la raíz:
+El proyecto está organizado en **2 carpetas principales**:
 
 ```
 NutricionApp/
-├── back/               # API REST (Node.js + Express + TypeScript + Zod + Prisma Blueprint)
-├── front/              # Dashboard Web de la Nutricionista (Next.js 14 + Tailwind + Recharts)
-├── mobile/             # Web App Mobile-First para Pacientes (Next.js 14 + Framer Motion)
-├── package.json        # Orquestador raíz con scripts concurrentes
+├── back/               # API REST (Node.js + Express + TypeScript + Zod + Mocks de Mendoza) -> Puerto 4000
+├── web/                # Aplicación Web Next.js 14 unificada (Dashboard Nutricionista + App Mobile Pacientes) -> Puerto 3000
+│   ├── src/app/(dashboard) # Panel Clínico Nutricionista (/dashboard, /pacientes, /crear-dieta)
+│   ├── src/app/(mobile)    # Web App Mobile-First Paciente (/, /lista-compras, /reemplazos, /mi-progreso)
+│   └── src/app/(auth)      # Acceso y selector de roles (/login)
+├── package.json        # Orquestador raíz para correr Back y Web en simultáneo
 └── README.md           # Documentación técnica completa
 ```
 
 ---
 
-## ⚡ Inicio Rápido (3 Comandos)
+## ⚡ Inicio Rápido
 
 ### 1. Instalar todas las dependencias
 Desde la raíz del proyecto ejecuta:
@@ -27,15 +29,14 @@ Desde la raíz del proyecto ejecuta:
 npm run install:all
 ```
 
-### 2. Iniciar todo el ecosistema en paralelo
+### 2. Iniciar Backend y Web en simultáneo
 ```bash
-npm run dev:all
+npm run dev
 ```
 
-Esto levantará los 3 servicios simultáneamente:
+Esto levantará los servicios:
 - 🌐 **Backend API:** [http://localhost:4000](http://localhost:4000) (Endpoints bajo `/api`)
-- 💻 **Dashboard Nutricionista:** [http://localhost:3000](http://localhost:3000)
-- 📱 **App Mobile Pacientes:** [http://localhost:3001](http://localhost:3001)
+- 💻 **Dashboard Nutricionista & App Mobile:** [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -50,18 +51,11 @@ npm run dev
 # Corre en http://localhost:4000
 ```
 
-### 2. Dashboard Nutricionista (`/front`)
+### 2. Frontend Web & Mobile (`/web`)
 ```bash
-cd front
+cd web
 npm run dev
 # Corre en http://localhost:3000
-```
-
-### 3. App Mobile Paciente (`/mobile`)
-```bash
-cd mobile
-npm run dev
-# Corre en http://localhost:3001
 ```
 
 ---
