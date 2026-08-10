@@ -270,7 +270,7 @@ function CrearDietaContent() {
   });
 
   return (
-    <div className="flex-1 flex flex-col bg-[#090d16] min-h-screen">
+    <div className="flex-1 flex flex-col bg-slate-50 min-h-screen">
       <Header 
         title="Creador Visual de Dietas" 
         subtitle="Prescripción inteligente por comidas, alimentos y balance de macronutrientes" 
@@ -278,16 +278,16 @@ function CrearDietaContent() {
 
       <div className="p-6 space-y-6 max-w-7xl w-full mx-auto">
         {/* Top Controls: Patient & Targets */}
-        <div className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-semibold text-slate-600 mb-1">
                 Seleccionar Paciente Destinatario
               </label>
               <select
                 value={selectedPatientId}
                 onChange={(e) => setSelectedPatientId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               >
                 {patients.map(p => (
                   <option key={p.id} value={p.id}>
@@ -298,87 +298,87 @@ function CrearDietaContent() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-semibold text-slate-600 mb-1">
                 Título del Plan
               </label>
               <input
                 type="text"
                 value={planTitle}
                 onChange={(e) => setPlanTitle(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               />
             </div>
           </div>
 
           {/* Macro Target inputs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-800/80">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-200">
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Calorías Objetivo (kcal)</label>
+              <label className="block text-[11px] text-slate-500 mb-1">Calorías Objetivo (kcal)</label>
               <input
                 type="number"
                 value={targetCalories}
                 onChange={(e) => setTargetCalories(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-amber-400 font-bold"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-amber-600 font-bold"
               />
             </div>
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Proteínas (g)</label>
+              <label className="block text-[11px] text-slate-500 mb-1">Proteínas (g)</label>
               <input
                 type="number"
                 value={targetProtein}
                 onChange={(e) => setTargetProtein(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-blue-400 font-bold"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-blue-600 font-bold"
               />
             </div>
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Carbohidratos (g)</label>
+              <label className="block text-[11px] text-slate-500 mb-1">Carbohidratos (g)</label>
               <input
                 type="number"
                 value={targetCarbs}
                 onChange={(e) => setTargetCarbs(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-emerald-400 font-bold"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-emerald-600 font-bold"
               />
             </div>
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1">Grasas (g)</label>
+              <label className="block text-[11px] text-slate-500 mb-1">Grasas (g)</label>
               <input
                 type="number"
                 value={targetFats}
                 onChange={(e) => setTargetFats(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-purple-400 font-bold"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-purple-600 font-bold"
               />
             </div>
           </div>
         </div>
 
         {/* Live Macro Gauge vs Targets */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 block">Calorías del Día</span>
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs shadow-sm">
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span className="text-[10px] text-slate-500 block">Calorías del Día</span>
             <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-base font-bold text-amber-400">{calculatedCalories}</span>
-              <span className="text-[11px] text-slate-400 font-mono">/ {targetCalories} kcal</span>
+              <span className="text-base font-bold text-amber-600">{calculatedCalories}</span>
+              <span className="text-[11px] text-slate-500 font-mono">/ {targetCalories} kcal</span>
             </div>
           </div>
-          <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 block">Proteínas Calculadas</span>
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span className="text-[10px] text-slate-500 block">Proteínas Calculadas</span>
             <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-base font-bold text-blue-400">{calculatedProtein}g</span>
-              <span className="text-[11px] text-slate-400 font-mono">/ {targetProtein}g</span>
+              <span className="text-base font-bold text-blue-600">{calculatedProtein}g</span>
+              <span className="text-[11px] text-slate-500 font-mono">/ {targetProtein}g</span>
             </div>
           </div>
-          <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 block">Carbohidratos Calculados</span>
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span className="text-[10px] text-slate-500 block">Carbohidratos Calculados</span>
             <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-base font-bold text-emerald-400">{calculatedCarbs}g</span>
-              <span className="text-[11px] text-slate-400 font-mono">/ {targetCarbs}g</span>
+              <span className="text-base font-bold text-emerald-600">{calculatedCarbs}g</span>
+              <span className="text-[11px] text-slate-500 font-mono">/ {targetCarbs}g</span>
             </div>
           </div>
-          <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 block">Grasas Calculadas</span>
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <span className="text-[10px] text-slate-500 block">Grasas Calculadas</span>
             <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-base font-bold text-purple-400">{calculatedFats}g</span>
-              <span className="text-[11px] text-slate-400 font-mono">/ {targetFats}g</span>
+              <span className="text-base font-bold text-purple-600">{calculatedFats}g</span>
+              <span className="text-[11px] text-slate-500 font-mono">/ {targetFats}g</span>
             </div>
           </div>
         </div>
@@ -395,8 +395,8 @@ function CrearDietaContent() {
                   onClick={() => setActiveDay(d)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                     activeDay === d
-                      ? 'bg-blue-600 text-white shadow-glow-blue'
-                      : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                      ? 'bg-emerald-600 text-white shadow-md'
+                      : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 hover:text-slate-700'
                   }`}
                 >
                   {d}
@@ -405,9 +405,9 @@ function CrearDietaContent() {
             </div>
 
             {/* Active Meal Type Selector for adding items */}
-            <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
-              <span className="text-xs text-slate-300 font-medium flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-blue-400" />
+            <div className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between gap-2 shadow-sm">
+              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-emerald-600" />
                 Agregar alimentos a:
               </span>
               <div className="flex items-center gap-1 overflow-x-auto">
@@ -417,8 +417,8 @@ function CrearDietaContent() {
                     onClick={() => setActiveMealType(type)}
                     className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all cursor-pointer ${
                       activeMealType === type
-                        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     {type}
@@ -430,25 +430,25 @@ function CrearDietaContent() {
             {/* Meals in the current day */}
             <div className="space-y-4">
               {currentDay?.meals.map(meal => (
-                <div key={meal.id} className="glass-panel p-4 rounded-2xl border border-slate-800">
-                  <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                    <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">
+                <div key={meal.id} className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">
                       {meal.type}
                     </span>
-                    <span className="text-[11px] text-slate-400">{meal.items.length} alimentos</span>
+                    <span className="text-[11px] text-slate-500">{meal.items.length} alimentos</span>
                   </div>
 
                   <div className="mt-3 space-y-2">
                     {meal.items.length === 0 ? (
-                      <p className="text-xs text-slate-400 italic py-2">
+                      <p className="text-xs text-slate-500 italic py-2">
                         Sin alimentos asignados. Selecciona alimentos del catálogo a la derecha.
                       </p>
                     ) : (
                       meal.items.map(it => (
-                        <div key={it.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800 text-xs">
+                        <div key={it.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-100 text-xs hover:border-slate-200 transition-colors">
                           <div className="min-w-0 flex-1">
-                            <span className="font-semibold text-slate-200 block truncate">{it.foodName}</span>
-                            <span className="text-[10px] text-slate-400">
+                            <span className="font-semibold text-slate-800 block truncate">{it.foodName}</span>
+                            <span className="text-[10px] text-slate-500">
                               {it.calories} kcal • P: {it.proteinGrams}g | C: {it.carbsGrams}g | G: {it.fatsGrams}g
                             </span>
                           </div>
@@ -462,14 +462,14 @@ function CrearDietaContent() {
                                 step={10}
                                 value={it.quantityGrams}
                                 onChange={(e) => handleUpdateItemGrams(meal.type, it.id, Number(e.target.value))}
-                                className="w-16 bg-slate-800 border border-slate-700 rounded px-2 py-0.5 text-xs text-slate-200 font-mono text-center"
+                                className="w-16 bg-white border border-slate-200 rounded px-2 py-0.5 text-xs text-slate-800 font-mono text-center shadow-sm"
                               />
-                              <span className="text-slate-400 text-xs">{it.unit}</span>
+                              <span className="text-slate-500 text-xs font-medium">{it.unit}</span>
                             </div>
 
                             <button
                               onClick={() => handleRemoveFoodItem(meal.type, it.id)}
-                              className="text-slate-400 hover:text-red-400 p-1 transition-colors"
+                              className="text-slate-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded transition-colors"
                               title="Eliminar"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -485,13 +485,13 @@ function CrearDietaContent() {
           </div>
 
           {/* Right Column: Searchable Food Library (5 cols) */}
-          <div className="lg:col-span-5 glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
+          <div className="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-                <Apple className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <Apple className="w-4 h-4 text-emerald-500" />
                 Catálogo de Alimentos (Mendoza)
               </h3>
-              <span className="text-[10px] text-blue-400 font-mono">
+              <span className="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 font-bold">
                 Destino: {activeMealType}
               </span>
             </div>
@@ -504,7 +504,7 @@ function CrearDietaContent() {
                 placeholder="Buscar pollo, avena, palta, merluza..."
                 value={foodSearch}
                 onChange={(e) => setFoodSearch(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-400 focus:ring-1 focus:ring-blue-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:ring-1 focus:ring-emerald-500 shadow-inner"
               />
             </div>
 
@@ -516,8 +516,8 @@ function CrearDietaContent() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-2.5 py-1 rounded-full whitespace-nowrap transition-colors cursor-pointer ${
                     selectedCategory === cat
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-semibold'
-                      : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                      ? 'bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold shadow-sm'
+                      : 'bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   {cat}
@@ -530,14 +530,14 @@ function CrearDietaContent() {
               {filteredFoods.map(food => (
                 <div
                   key={food.id}
-                  className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 transition-colors flex items-center justify-between text-xs group"
+                  className="p-2.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-soft transition-all flex items-center justify-between text-xs group"
                 >
                   <div className="min-w-0 flex-1 pr-2">
-                    <p className="font-semibold text-slate-200 group-hover:text-blue-400 transition-colors truncate">
+                    <p className="font-bold text-slate-800 group-hover:text-emerald-700 transition-colors truncate">
                       {food.name}
                     </p>
-                    <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
-                      <span className="text-emerald-400">{food.category}</span>
+                    <div className="flex items-center gap-2 text-[10px] text-slate-500 mt-0.5">
+                      <span className="text-emerald-600 font-medium">{food.category}</span>
                       <span>• {food.caloriesPer100g} kcal/100g</span>
                       <span>• P: {food.proteinPer100g}g</span>
                     </div>
@@ -545,7 +545,7 @@ function CrearDietaContent() {
 
                   <button
                     onClick={() => handleAddFoodToMeal(food)}
-                    className="p-1.5 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-lg border border-blue-500/30 transition-all cursor-pointer shrink-0"
+                    className="p-1.5 bg-emerald-50 hover:bg-emerald-600 text-emerald-600 hover:text-white rounded-lg border border-emerald-100 hover:border-transparent transition-all cursor-pointer shrink-0"
                     title={`Agregar a ${activeMealType}`}
                   >
                     <Plus className="w-4 h-4" />
@@ -557,15 +557,15 @@ function CrearDietaContent() {
         </div>
 
         {/* Save Bar */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
           <div>
             {successMsg ? (
-              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                <Check className="w-4 h-4 text-emerald-600" />
                 {successMsg}
               </span>
             ) : (
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-slate-500">
                 Al guardar, la dieta semanal se activará inmediatamente en la app del paciente.
               </span>
             )}
@@ -574,14 +574,14 @@ function CrearDietaContent() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push('/pacientes')}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               onClick={handleSavePlan}
               disabled={saving}
-              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white text-xs font-semibold px-5 py-2.5 rounded-lg shadow-glow-blue transition-all cursor-pointer"
+              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-5 py-2.5 rounded-lg shadow-sm transition-all cursor-pointer"
             >
               <Save className="w-4 h-4" />
               <span>{saving ? 'Guardando...' : 'Prescribir & Guardar Dieta'}</span>
